@@ -9,6 +9,7 @@ class Details extends Component {
 
     getDetails = ()=>{
         this.props.dispatch({type: 'FETCH_DETAILS', payload: this.props.match.params.id})
+        this.props.dispatch({type: 'FETCH_GENRES', payload: this.props.match.params.id})
     }
     handelClick= ()=>{
         this.props.history.push('/');
@@ -31,6 +32,14 @@ class Details extends Component {
                     </div>
                 )
             })}
+            <ul>
+                {this.props.reduxState.genres.map((genre,i)=>{
+                    return(
+                        <li key={i}>{genre.name}</li>
+                    )
+                })}
+            </ul>
+
             </>
         )
     }

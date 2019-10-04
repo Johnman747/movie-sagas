@@ -17,6 +17,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchMovies);
     yield takeEvery('FETCH_DETAILS', fetchDetails);
     yield takeEvery('UPDATE_MOVIE', updateMovie);
+    yield takeEvery('FETCH_GENRES', fetchGenres);
 }
 
 function* fetchMovies(){
@@ -40,6 +41,15 @@ function* fetchDetails(action){
 function* updateMovie(action){
     try{
         yield axios.put('/movies', action.payload);
+    }catch(err){
+        console.log(err);
+    }
+}
+
+function* fetchGenres(action){
+    try{
+        const response = yield axios.get(`/movies/genres/${action.payload}`);
+        yield put({type: 'SET_GENRES', payload: response.data})
     }catch(err){
         console.log(err);
     }

@@ -44,9 +44,11 @@ class Edit extends Component {
         this.props.dispatch({type: 'UPDATE_MOVIE', payload: this.state.movie});
         this.props.history.push(`/details/${this.state.movie.id}`);
     }
+
     cancelEdit = ()=>{
         this.props.history.push(`/details/${this.state.movie.id}`)
     }
+    
     render() {
         return (
             <>
