@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {withRouter} from 'react-router'
+import {withRouter} from 'react-router';
+import {Paper, Grid} from '@material-ui/core'
 
 class Home extends Component {
     // Renders the entire app on the DOM
@@ -20,17 +21,18 @@ class Home extends Component {
       return (
         <div className="App">
           <p>home page</p>
-          <ul>
+        <Grid container justify="center" spacing={40}>
           {this.props.reduxState.movies.map((movie)=>{
               return(
-                  <div key={movie.id}>
-                  <p>Title: {movie.title}</p>
+                  <Grid item xs={3} key={movie.id}>
+                      <Paper>
+                  <p>{movie.title}</p>
                   <img alt={movie.title} src={movie.poster} onClick={()=>this.handelClick(movie.id)}/>
-                  <p>Description: {movie.description}</p>
-                  </div>
+                  </Paper>
+                  </Grid>
               )
           })}
-          </ul>
+          </Grid>
         </div>
       );
     }

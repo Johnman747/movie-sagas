@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
+import {Button, Grid, Paper} from "@material-ui/core";
 
 class Details extends Component {
     componentDidMount(){
@@ -21,8 +22,11 @@ class Details extends Component {
     render() {
         return (
             <>
-            <button onClick={this.handelClick}>Return to list</button>
-            <button onClick={this.editClick}>Edit</button>
+            <Button variant="contained" onClick={this.handelClick}>Return to list</Button>
+            <Button variant="contained" onClick={this.editClick}>Edit</Button>
+            <Grid container justify="center" spacing={40}>
+            <Grid item sm={6}>
+            <Paper>
             {this.props.reduxState.details.map((movie)=>{
                 return(
                     <div key={movie.id}>
@@ -39,7 +43,9 @@ class Details extends Component {
                     )
                 })}
             </ul>
-
+            </Paper>
+            </Grid>
+            </Grid>
             </>
         )
     }

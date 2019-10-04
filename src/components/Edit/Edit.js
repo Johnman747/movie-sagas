@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
+import {Button, TextField, Grid} from "@material-ui/core";
 
 class Edit extends Component {
     state = {
@@ -11,7 +12,8 @@ class Edit extends Component {
         }
     }
     componentDidMount(){
-         this.set();
+        this.getDetails();
+        this.set();
     }
     getDetails = ()=>{
         this.props.dispatch({type: 'FETCH_DETAILS', payload: this.props.match.params.id});
@@ -42,23 +44,30 @@ class Edit extends Component {
 
     handelUpdate=()=>{
         this.props.dispatch({type: 'UPDATE_MOVIE', payload: this.state.movie});
-        this.props.history.push(`/details/${this.state.movie.id}`);
+        this.setState({
+            state: this.state
+        })
+        this.props.history.push(`/details/${this.props.match.params.id}`);
     }
 
     cancelEdit = ()=>{
-        this.props.history.push(`/details/${this.state.movie.id}`)
+        this.props.history.push(`/details/${this.props.match.params.id}`)
     }
-    
+
     render() {
         return (
             <>
+            <Grid container justify="center" spacing={40}>
+                <Grid item  md={6}>
                 <h3>Edit</h3>
-                <input value={this.state.movie.title} onChange={(e)=>this.handelChange(e,"title")}/>
+                <TextField  label="Title" variant="filled" value={this.state.movie.title} onChange={(e)=>this.handelChange(e,"title")}/>
                 <br/>
-                <textarea value={this.state.movie.description} onChange={(e)=>this.handelChange(e,"description")}></textarea>
+                <TextField multiline fullWidth label="Description" value={this.state.movie.description} variant="filled" onChange={(e)=>this.handelChange(e,"description")}></TextField>
                 <br/>
-                <button onClick={this.cancelEdit}>Cancel</button>
-                <button onClick={this.handelUpdate}>Update</button>
+                <Button variant="contained" onClick={this.cancelEdit}>Cancel</Button>
+                <Button variant='contained' onClick={this.handelUpdate}>Update</Button>
+                </Grid>
+                </Grid>
             </>
         )
     }
