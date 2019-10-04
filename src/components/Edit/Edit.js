@@ -34,6 +34,7 @@ class Edit extends Component {
     handelChange=(e,propertyName)=>{
         this.setState({
             movie:{
+                ...this.state.movie,
                 [propertyName]: e.target.value
             }
         })
