@@ -13,15 +13,20 @@ class Details extends Component {
     handelClick= ()=>{
         this.props.history.push('/');
     }
+
+    editClick = ()=>{
+        this.props.history.push(`/edit/${this.props.match.params.id}`)
+    }
     render() {
         return (
             <>
             <button onClick={this.handelClick}>Return to list</button>
+            <button onClick={this.editClick}>Edit</button>
             {this.props.reduxState.details.map((movie)=>{
                 return(
                     <div key={movie.id}>
                         <p>{movie.title}</p>
-                        <img alt={movie.title} src={movie.poster}></img>
+                        <img alt={movie.title} src={movie.poster}/>
                         <p>{movie.description}</p>
                     </div>
                 )

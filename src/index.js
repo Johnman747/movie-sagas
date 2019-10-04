@@ -16,6 +16,7 @@ import axios from "axios";
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchMovies);
     yield takeEvery('FETCH_DETAILS', fetchDetails);
+    yield takeEvery('UPDATE_MOVIE', updateMovie);
 }
 
 function* fetchMovies(){
@@ -31,6 +32,14 @@ function* fetchDetails(action){
     try{
         const response = yield axios.get(`/movies/details/${action.payload}`)
         yield put({type: 'SET_DETAILS', payload: response.data});
+    }catch(err){
+        console.log(err);
+    }
+}
+
+function* updateMovie(action){
+    try{
+        yield axios.put('/movies', action.payload);
     }catch(err){
         console.log(err);
     }

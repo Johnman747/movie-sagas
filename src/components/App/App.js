@@ -4,6 +4,7 @@ import './App.css';
 
 import Home from '../Home/Home'
 import Details from '../Details/Details'
+import Edit from '../Edit/Edit'
 
 class App extends Component {
   // Renders the entire app on the DOM
@@ -13,6 +14,7 @@ class App extends Component {
       <div className="App">
         <Route path='/' exact component={Home}/>
         <Route path='/details/:id' render={({match})=><Details match={match}/>}/>
+        <Route path='/edit/:id' render={({match})=><Edit match={match}/>}/>
       </div>
       </Router>
     );
