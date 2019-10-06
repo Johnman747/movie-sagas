@@ -19,6 +19,7 @@ function* rootSaga() {
     yield takeEvery('UPDATE_MOVIE', updateMovie);
     yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('DELETE_GENRE', deleteGenre);
+    yield takeEvery('ADD_GENRE', addGenre);
 }
 
 function* fetchMovies(){
@@ -65,12 +66,11 @@ function* deleteGenre(action){
     }
 }
 
-const details = (state=[], action)=>{
-    switch(action.type){
-        case 'SET_DETAILS':
-            return action.payload
-        default:
-            return state
+function* addGenre(action){
+    try{
+        yield axios.put(`/movies/${action.payload.id}/${action.payload.genre}`);
+    }catch(err){
+        console.log(err)
     }
 }
 
@@ -84,6 +84,15 @@ const movies = (state = [], action) => {
             return action.payload;
         default:
             return state;
+    }
+}
+
+const details = (state=[], action)=>{
+    switch(action.type){
+        case 'SET_DETAILS':
+            return action.payload
+        default:
+            return state
     }
 }
 

@@ -47,6 +47,18 @@ router.put('/', (req,res)=>{
     })
 })
 
+router.put('/:id/:genre', (req,res)=>{
+    console.log(req.params);
+    const queryText = `INSERT INTO "movies_genres"("movies_id","genres_id") VALUES($1,$2);`;
+    pool.query(queryText,[req.params.id, req.params.genre])
+    .then((result)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
+
 router.delete('/:id', (req,res)=>{
     const queryText = `DELETE FROM "movies_genres" WHERE "movies_genres".id = $1;`;
     pool.query(queryText,[req.params.id])
