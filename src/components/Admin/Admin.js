@@ -66,6 +66,7 @@ class Home extends Component {
             <TextField variant='outlined' value={this.state.newGenre} onChange={(e)=>this.newGenre(e)}/>
             <br/>
             <Button variant='contained' onClick={this.handelAdd}>Add</Button>
+            <Button variant='contained' onClick={this.getGenres}>Refresh Genres</Button>
             {this.props.reduxState.genres.map((genre)=>{
                 return(
                     <p key={genre.id}>{genre.name}</p>
