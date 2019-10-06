@@ -101,17 +101,17 @@ class Edit extends Component {
                             <Select value={this.state.genre} onChange={(e) => this.SelectGenre(e)}>
                                 {this.props.reduxState.allGenres.map((genre)=>{
                                     return(
-                                    <MenuItem value={genre.id}>{genre.name}</MenuItem>
+                                    <MenuItem key={genre.id} value={genre.id}>{genre.name}</MenuItem>
                                     )
                                 })}
                             </Select>
                         </FormControl>
-                        <button onClick={this.addGenre}>Add Genre</button>
+                        <Button variant='contained' onClick={this.addGenre}>Add Genre</Button>
                         <br />
                         {this.props.reduxState.genres.map((genre) => {
                             return (
                                 <div key={genre.id}>
-                                    <p>{genre.name}<button onClick={() => this.handleDelete(genre.id)}>Delete</button></p>
+                                    <p>{genre.name}<Button onClick={() => this.handleDelete(genre.id)}>Delete</Button></p>
 
                                 </div>
                             )
