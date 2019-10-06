@@ -44,10 +44,10 @@ Steps to get the development environment running.
 - [x] allow user to add genres to movies
 - [x] allow user to delete genres from movie
 - [x] added some styling with material-ui
+- [x] add and admin page
 
 ### Next Steps
 - [] add better styling with material-ui
-- [] add and admin page
 - [] add movie search feature
 
 ## Authors
