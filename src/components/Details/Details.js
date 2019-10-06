@@ -30,19 +30,19 @@ class Details extends Component {
                             {this.props.reduxState.details.map((movie) => {
                                 return (
                                     <div key={movie.id}>
-                                        <p>{movie.title}</p>
+                                        <h2>{movie.title}</h2>
                                         <img alt={movie.title} src={movie.poster} />
+                                        <h3>Description:</h3>
                                         <p>{movie.description}</p>
                                     </div>
                                 )
                             })}
-                            <ul>
-                                {this.props.reduxState.genres.map((genre, i) => {
-                                    return (
-                                        <li key={i}>{genre.name}</li>
-                                    )
-                                })}
-                            </ul>
+                            <h3>Genres:</h3>
+                            {this.props.reduxState.genres.map((genre, i) => {
+                                return (
+                                    <p key={i}>{genre.name}</p>
+                                )
+                            })}
                         </Paper>
                     </Grid>
                 </Grid>

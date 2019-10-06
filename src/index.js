@@ -88,7 +88,7 @@ function* addNewGenre(action) {
 function* getAllGenres(action) {
     try {
         const response = yield axios.get('/movies/getall/genres')
-        yield put({ type: 'SET_GENRES', payload: response.data })
+        yield put({ type: 'SET_ALL_GENRES', payload: response.data })
     } catch (err) {
         console.log(err);
     }
@@ -126,12 +126,22 @@ const genres = (state = [], action) => {
     }
 }
 
+const allGenres = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_ALL_GENRES':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
         details,
+        allGenres
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

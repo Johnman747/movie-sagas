@@ -57,6 +57,10 @@ class Home extends Component {
 
     }
 
+    home=()=>{
+        this.props.history.push('/');
+    }
+
     render() {
         return (
             <div>
@@ -67,11 +71,12 @@ class Home extends Component {
                         <br />
                         <Button variant='contained' onClick={this.handelAdd}>Add</Button>
                         <Button variant='contained' onClick={this.getGenres}>Refresh Genres</Button>
-                        {this.props.reduxState.genres.map((genre) => {
+                        {this.props.reduxState.allGenres.map((genre) => {
                             return (
                                 <p key={genre.id}>{genre.name}</p>
                             )
                         })}
+                        <Button variant='contained' onClick={this.home}>Home</Button>
                     </div>
                     :
                     <div>
@@ -81,6 +86,7 @@ class Home extends Component {
                         Password:<br />
                         <TextField variant='outlined' onChange={(e) => this.handelChange(e, 'password')} />
                         <br />
+                        <Button variant='contained' onClick={this.home}>Home</Button>
                         <Button variant='contained' onClick={this.verifyUser}>Submit</Button>
                     </div>
                 }

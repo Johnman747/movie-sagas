@@ -23,7 +23,7 @@ class Home extends Component {
     render() {
         return (
             <div className="App">
-                <p>home page</p>
+                <h1>home page</h1>
                 <Button variant='contained' onClick={this.adminPage}>Admin Page</Button>
                 <Grid container justify="center" spacing={40}>
                     {this.props.reduxState.movies.map((movie) => {

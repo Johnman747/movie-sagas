@@ -19,6 +19,8 @@ class Edit extends Component {
     getDetails = async () => {
         this.props.dispatch({ type: 'FETCH_DETAILS', payload: this.props.match.params.id });
         this.props.dispatch({ type: 'FETCH_GENRES', payload: this.props.match.params.id });
+        this.props.dispatch({ type: 'GET_ALL_GENRES'});
+
         this.set();
     }
 
@@ -97,20 +99,11 @@ class Edit extends Component {
                         <p>Add Genre</p>
                         <FormControl>
                             <Select value={this.state.genre} onChange={(e) => this.SelectGenre(e)}>
-                                <MenuItem value={''}>None</MenuItem>
-                                <MenuItem value={1}>Adventure</MenuItem>
-                                <MenuItem value={2}>Animation</MenuItem>
-                                <MenuItem value={3}>Biographical</MenuItem>
-                                <MenuItem value={4}>Comedy</MenuItem>
-                                <MenuItem value={5}>Disaster</MenuItem>
-                                <MenuItem value={6}>Drama</MenuItem>
-                                <MenuItem value={7}>Epic</MenuItem>
-                                <MenuItem value={8}>Fanasy</MenuItem>
-                                <MenuItem value={9}>Musical</MenuItem>
-                                <MenuItem value={10}>Romantic</MenuItem>
-                                <MenuItem value={11}>Science Fiction</MenuItem>
-                                <MenuItem value={12}>Space-Opera</MenuItem>
-                                <MenuItem value={13}>Superhero</MenuItem>
+                                {this.props.reduxState.allGenres.map((genre)=>{
+                                    return(
+                                    <MenuItem value={genre.id}>{genre.name}</MenuItem>
+                                    )
+                                })}
                             </Select>
                         </FormControl>
                         <button onClick={this.addGenre}>Add Genre</button>
