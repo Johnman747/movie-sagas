@@ -36,6 +36,17 @@ router.get('/genres/:id', (req,res)=>{
     })
 })
 
+router.get('/getall/genres', (req,res)=>{
+    const queryText = `SELECT * FROM "genres" ORDER BY "name" ASC;`;
+    console.log(req.body);
+    pool.query(queryText)
+    .then((result)=>{
+        res.send(result.rows);
+    }).catch((err)=>{
+        res.sendStatus(500);
+        console.log(err);
+    })
+})
 router.put('/', (req,res)=>{
     console.log(req.body);
     const queryText = `UPDATE "movies" SET "title" = $1 , "description" = $2 WHERE "id" = $3;`;
@@ -47,7 +58,7 @@ router.put('/', (req,res)=>{
     })
 })
 
-router.put('/:id/:genre', (req,res)=>{
+router.put('/addgenre/:id/:genre', (req,res)=>{
     console.log(req.params);
     const queryText = `INSERT INTO "movies_genres"("movies_id","genres_id") VALUES($1,$2);`;
     pool.query(queryText,[req.params.id, req.params.genre])
@@ -56,6 +67,17 @@ router.put('/:id/:genre', (req,res)=>{
     }).catch((err)=>{
         console.log(err);
         res.sendStatus(500);
+    })
+})
+
+router.put('/addnew/genre', (req,res)=>{
+    const queryText = `INSERT INTO "genres" ("name") VALUES ($1);`;
+    pool.query(queryText,[req.body.genre])
+    .then((result)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        res.sendStatus(500);
+        console.log(err);
     })
 })
 

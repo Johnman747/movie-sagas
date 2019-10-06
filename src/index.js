@@ -21,6 +21,8 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('DELETE_GENRE', deleteGenre);
     yield takeEvery('ADD_GENRE', addGenre);
+    yield takeEvery('ADD_NEW_GENRE', addNewGenre);
+    yield takeEvery('GET_ALL_GENRES', getAllGenres);
 }
 
 function* fetchMovies(){
@@ -69,9 +71,26 @@ function* deleteGenre(action){
 
 function* addGenre(action){
     try{
-        yield axios.put(`/movies/${action.payload.id}/${action.payload.genre}`);
+        yield axios.put(`/movies/addgenre/${action.payload.id}/${action.payload.genre}`);
     }catch(err){
         console.log(err)
+    }
+}
+
+function* addNewGenre(action){
+    try{
+        yield axios.put('/movies/addNew/genre', {genre:action.payload});
+    }catch(err){
+        console.log(err);
+    }
+}
+
+function* getAllGenres(action){
+    try{
+       const response = yield axios.get('/movies/getall/genres')
+       yield put({type: 'SET_GENRES', payload: response.data})
+    }catch(err){
+        console.log(err);
     }
 }
 
