@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
-import { Button, TextField, Grid } from "@material-ui/core";
+import { Button, TextField, Grid,Select,MenuItem,FormControl } from "@material-ui/core";
 
 class Edit extends Component {
     state = {
@@ -10,15 +10,16 @@ class Edit extends Component {
             title: '',
             description: ''
         },
-        genre: '1'
+        genre: ''
     }
     componentDidMount() {
-        this.getDetails()
-        // this.set();
+        this.getDetails();
     }
-    getDetails = () => {
+   
+    getDetails = async () => {
         this.props.dispatch({ type: 'FETCH_DETAILS', payload: this.props.match.params.id });
-        this.props.dispatch({ type: 'FETCH_GENRES', payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'FETCH_GENRES', payload: this.props.match.params.id });
+        this.set();
     }
 
     set = () => {
@@ -76,34 +77,44 @@ class Edit extends Component {
             console.log("Reject", id);
         }
     }
+
+    loadDetails = ()=>{
+        this.getDetails();
+    }
     render() {
         return (
             <>
                 <Grid container justify="center" spacing={40}>
                     <Grid item md={6}>
                         <h3>Edit</h3>
+                        <Button onClick={this.loadDetails}>Load Details</Button>
+                        <br/>
+                        <br/>
                         <TextField label="Title" variant="filled" value={this.state.movie.title} onChange={(e) => this.handelChange(e, "title")} />
                         <br />
                         <TextField multiline fullWidth label="Description" value={this.state.movie.description} variant="filled" onChange={(e) => this.handelChange(e, "description")}></TextField>
                         <br />
                         <p>Add Genre</p>
-                        <select onChange={(e)=>this.SelectGenre(e)}>
-                            <option value="1">Adventure</option>
-                            <option value="2">Animation</option>
-                            <option value="3">Biographical</option>
-                            <option value="4">Comedy</option>
-                            <option value="5">Disaster</option>
-                            <option value="6">Drama</option>
-                            <option value="7">Epic</option>
-                            <option value="8">Fanasy</option>
-                            <option value="9">Musical</option>
-                            <option value="10">Romantic</option>
-                            <option value="11">Science Fiction</option>
-                            <option value="12">Space-Opera</option>
-                            <option value="13">Superhero</option>
-                        </select>
+                        <FormControl>
+                        <Select value={this.state.genre} onChange={(e)=>this.SelectGenre(e)}>
+                            <MenuItem value={''}>None</MenuItem>
+                            <MenuItem value={1}>Adventure</MenuItem>
+                            <MenuItem value={2}>Animation</MenuItem>
+                            <MenuItem value={3}>Biographical</MenuItem>
+                            <MenuItem value={4}>Comedy</MenuItem>
+                            <MenuItem value={5}>Disaster</MenuItem>
+                            <MenuItem value={6}>Drama</MenuItem>
+                            <MenuItem value={7}>Epic</MenuItem>
+                            <MenuItem value={8}>Fanasy</MenuItem>
+                            <MenuItem value={9}>Musical</MenuItem>
+                            <MenuItem value={10}>Romantic</MenuItem>
+                            <MenuItem value={11}>Science Fiction</MenuItem>
+                            <MenuItem value={12}>Space-Opera</MenuItem>
+                            <MenuItem value={13}>Superhero</MenuItem>
+                        </Select>
+                        </FormControl>
                         <button onClick={this.addGenre}>Add Genre</button>
-                        <br />
+                        <br/>
                         {this.props.reduxState.genres.map((genre) => {
                             return (
                                 <div key={genre.id}>
