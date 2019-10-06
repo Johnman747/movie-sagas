@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
-import { Button, TextField, Grid,Select,MenuItem,FormControl } from "@material-ui/core";
+import { Button, TextField, Grid, Select, MenuItem, FormControl } from "@material-ui/core";
 
 class Edit extends Component {
     state = {
@@ -15,7 +15,7 @@ class Edit extends Component {
     componentDidMount() {
         this.getDetails();
     }
-   
+
     getDetails = async () => {
         this.props.dispatch({ type: 'FETCH_DETAILS', payload: this.props.match.params.id });
         this.props.dispatch({ type: 'FETCH_GENRES', payload: this.props.match.params.id });
@@ -54,14 +54,14 @@ class Edit extends Component {
         this.props.history.push(`/details/${this.props.match.params.id}`);
     }
 
-    SelectGenre = (e)=>{
+    SelectGenre = (e) => {
         this.setState({
             genre: e.target.value
         })
     }
 
-    addGenre = ()=>{
-        this.props.dispatch({type: 'ADD_GENRE', payload: {genre: this.state.genre, id: this.props.match.params.id}})
+    addGenre = () => {
+        this.props.dispatch({ type: 'ADD_GENRE', payload: { genre: this.state.genre, id: this.props.match.params.id } })
         this.getDetails();
     }
     cancelEdit = () => {
@@ -78,7 +78,7 @@ class Edit extends Component {
         }
     }
 
-    loadDetails = ()=>{
+    loadDetails = () => {
         this.getDetails();
     }
     render() {
@@ -88,33 +88,33 @@ class Edit extends Component {
                     <Grid item md={6}>
                         <h3>Edit</h3>
                         <Button onClick={this.loadDetails}>Load Details</Button>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <TextField label="Title" variant="filled" value={this.state.movie.title} onChange={(e) => this.handelChange(e, "title")} />
                         <br />
                         <TextField multiline fullWidth label="Description" value={this.state.movie.description} variant="filled" onChange={(e) => this.handelChange(e, "description")}></TextField>
                         <br />
                         <p>Add Genre</p>
                         <FormControl>
-                        <Select value={this.state.genre} onChange={(e)=>this.SelectGenre(e)}>
-                            <MenuItem value={''}>None</MenuItem>
-                            <MenuItem value={1}>Adventure</MenuItem>
-                            <MenuItem value={2}>Animation</MenuItem>
-                            <MenuItem value={3}>Biographical</MenuItem>
-                            <MenuItem value={4}>Comedy</MenuItem>
-                            <MenuItem value={5}>Disaster</MenuItem>
-                            <MenuItem value={6}>Drama</MenuItem>
-                            <MenuItem value={7}>Epic</MenuItem>
-                            <MenuItem value={8}>Fanasy</MenuItem>
-                            <MenuItem value={9}>Musical</MenuItem>
-                            <MenuItem value={10}>Romantic</MenuItem>
-                            <MenuItem value={11}>Science Fiction</MenuItem>
-                            <MenuItem value={12}>Space-Opera</MenuItem>
-                            <MenuItem value={13}>Superhero</MenuItem>
-                        </Select>
+                            <Select value={this.state.genre} onChange={(e) => this.SelectGenre(e)}>
+                                <MenuItem value={''}>None</MenuItem>
+                                <MenuItem value={1}>Adventure</MenuItem>
+                                <MenuItem value={2}>Animation</MenuItem>
+                                <MenuItem value={3}>Biographical</MenuItem>
+                                <MenuItem value={4}>Comedy</MenuItem>
+                                <MenuItem value={5}>Disaster</MenuItem>
+                                <MenuItem value={6}>Drama</MenuItem>
+                                <MenuItem value={7}>Epic</MenuItem>
+                                <MenuItem value={8}>Fanasy</MenuItem>
+                                <MenuItem value={9}>Musical</MenuItem>
+                                <MenuItem value={10}>Romantic</MenuItem>
+                                <MenuItem value={11}>Science Fiction</MenuItem>
+                                <MenuItem value={12}>Space-Opera</MenuItem>
+                                <MenuItem value={13}>Superhero</MenuItem>
+                            </Select>
                         </FormControl>
                         <button onClick={this.addGenre}>Add Genre</button>
-                        <br/>
+                        <br />
                         {this.props.reduxState.genres.map((genre) => {
                             return (
                                 <div key={genre.id}>

@@ -25,71 +25,71 @@ function* rootSaga() {
     yield takeEvery('GET_ALL_GENRES', getAllGenres);
 }
 
-function* fetchMovies(){
-    try{
+function* fetchMovies() {
+    try {
         const response = yield axios.get('/movies')
-        yield put({type: 'SET_MOVIES', payload: response.data})
-    }catch(err){
+        yield put({ type: 'SET_MOVIES', payload: response.data })
+    } catch (err) {
         console.log(err)
     }
 }
 
-function* fetchDetails(action){
-    try{
+function* fetchDetails(action) {
+    try {
         const response = yield axios.get(`/movies/details/${action.payload}`)
-        yield put({type: 'SET_DETAILS', payload: response.data});
-    }catch(err){
+        yield put({ type: 'SET_DETAILS', payload: response.data });
+    } catch (err) {
         console.log(err);
     }
 }
 
-function* updateMovie(action){
-    try{
+function* updateMovie(action) {
+    try {
         yield axios.put('/movies', action.payload);
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 }
 
-function* fetchGenres(action){
-    try{
+function* fetchGenres(action) {
+    try {
         const response = yield axios.get(`/movies/genres/${action.payload}`);
-        yield put({type: 'SET_GENRES', payload: response.data})
-    }catch(err){
+        yield put({ type: 'SET_GENRES', payload: response.data })
+    } catch (err) {
         console.log(err);
     }
 }
 
-function* deleteGenre(action){
-    try{
+function* deleteGenre(action) {
+    try {
         yield axios.delete(`/movies/${action.payload}`);
-        yield put({type: 'FETCH_DETAILS', payload: action.payload})
-    }catch(err){
+        yield put({ type: 'FETCH_DETAILS', payload: action.payload })
+    } catch (err) {
         console.log(err);
     }
 }
 
-function* addGenre(action){
-    try{
+function* addGenre(action) {
+    try {
         yield axios.put(`/movies/addgenre/${action.payload.id}/${action.payload.genre}`);
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
 
-function* addNewGenre(action){
-    try{
-        yield axios.put('/movies/addNew/genre', {genre:action.payload});
-    }catch(err){
+function* addNewGenre(action) {
+    try {
+        yield axios.put('/movies/addNew/genre', { genre: action.payload });
+    } catch (err) {
         console.log(err);
     }
 }
 
-function* getAllGenres(action){
-    try{
-       const response = yield axios.get('/movies/getall/genres')
-       yield put({type: 'SET_GENRES', payload: response.data})
-    }catch(err){
+function* getAllGenres(action) {
+    try {
+        const response = yield axios.get('/movies/getall/genres')
+        yield put({ type: 'SET_GENRES', payload: response.data })
+    } catch (err) {
         console.log(err);
     }
 }
@@ -107,8 +107,8 @@ const movies = (state = [], action) => {
     }
 }
 
-const details = (state=[], action)=>{
-    switch(action.type){
+const details = (state = [], action) => {
+    switch (action.type) {
         case 'SET_DETAILS':
             return action.payload
         default:
@@ -140,6 +140,6 @@ const storeInstance = createStore(
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
 
-ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, 
+ReactDOM.render(<Provider store={storeInstance}><App /></Provider>,
     document.getElementById('root'));
 registerServiceWorker();

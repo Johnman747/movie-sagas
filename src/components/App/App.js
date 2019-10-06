@@ -12,12 +12,12 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <div className="App">
-        <Route path='/' exact component={Home}/>
-        <Route path='/details/:id' render={({match})=><Details match={match}/>}/>
-        <Route path='/edit/:id' render={({match})=><Edit match={match}/>}/>
-        <Route path='/admin' render={()=><Admin/>}/>
-      </div>
+        <div className="App">
+          <Route path='/' exact component={Home} />
+          <Route path='/details/:id' render={({ match }) => <Details match={match} />} />
+          <Route path='/edit/:id' render={({ match }) => <Edit match={match} />} />
+          <Route path='/admin' render={() => <Admin />} />
+        </div>
       </Router>
     );
   }
