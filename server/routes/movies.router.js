@@ -26,7 +26,7 @@ router.get('/details/:id', (req, res) => {
 })
 
 router.get('/genres/:id', (req,res)=>{
-    const queryText = `SELECT "genres".name FROM "movies" JOIN "movies_genres" ON "movies".id = "movies_genres".movies_id JOIN "genres" ON "genres".id = "movies_genres".genres_id WHERE "movies".id = $1;`;
+    const queryText = `SELECT "movies_genres".id, "genres".name FROM "movies" JOIN "movies_genres" ON "movies".id = "movies_genres".movies_id JOIN "genres" ON "genres".id = "movies_genres".genres_id WHERE "movies".id = $1;`;
     pool.query(queryText,[req.params.id])
     .then((result)=>{
         res.send(result.rows)
@@ -43,6 +43,17 @@ router.put('/', (req,res)=>{
     .then((result)=>{
         res.sendStatus(200);
     }).catch((err)=>{
+        res.sendStatus(500);
+    })
+})
+
+router.delete('/:id', (req,res)=>{
+    const queryText = `DELETE FROM "movies_genres" WHERE "movies_genres".id = $1;`;
+    pool.query(queryText,[req.params.id])
+    .then((reult)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        console.log(err);
         res.sendStatus(500);
     })
 })

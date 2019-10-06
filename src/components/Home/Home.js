@@ -24,7 +24,7 @@ class Home extends Component {
         <Grid container justify="center" spacing={40}>
           {this.props.reduxState.movies.map((movie)=>{
               return(
-                  <Grid item xs={3} key={movie.id}>
+                  <Grid item md key={movie.id}>
                       <Paper>
                   <p>{movie.title}</p>
                   <img alt={movie.title} src={movie.poster} onClick={()=>this.handelClick(movie.id)}/>

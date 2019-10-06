@@ -12,14 +12,15 @@ class Edit extends Component {
         }
     }
     componentDidMount(){
-        this.getDetails();
-        this.set();
+        this.getDetails()
+        .then(()=>{this.set()});
     }
     getDetails = ()=>{
-        this.props.dispatch({type: 'FETCH_DETAILS', payload: this.props.match.params.id});
+        this.props.dispatch({type: 'FETCH_DETAILS', payload: this.props.match.params.id})
     }
 
     set = ()=>{
+        console.log("set");
         this.props.reduxState.details.map((movie)=>{
             return(
                 this.setState({
@@ -54,6 +55,15 @@ class Edit extends Component {
         this.props.history.push(`/details/${this.props.match.params.id}`)
     }
 
+    handleDelete = (id)=>{
+        if(window.confirm("Are you Sure?")){
+            console.log("confirm",id);
+            this.props.dispatch({type:'DELETE_GENRE', payload: id})
+            this.getDetails();
+        }else{
+            console.log("Reject",id);
+        }
+    }
     render() {
         return (
             <>
@@ -64,6 +74,31 @@ class Edit extends Component {
                 <br/>
                 <TextField multiline fullWidth label="Description" value={this.state.movie.description} variant="filled" onChange={(e)=>this.handelChange(e,"description")}></TextField>
                 <br/>
+                <p>Add Genre</p>
+                <select>
+                    <option>Adventure</option>
+                    <option>Animation</option>
+                    <option>Biographical</option>
+                    <option>Comedy</option>
+                    <option>Disaster</option>
+                    <option>Drama</option>
+                    <option>Epic</option>
+                    <option>Fanasy</option>
+                    <option>Musical</option>
+                    <option>Romantic</option>
+                    <option>Science Fiction</option>
+                    <option>Space-Opera</option>
+                    <option>Superhero</option>
+                </select>
+                <br/>
+                {this.props.reduxState.genres.map((genre)=>{
+                    return(
+                        <div key={genre.id}>
+                            <p>{genre.name}<button onClick={()=>this.handleDelete(genre.id)}>Delete</button></p>
+                            
+                        </div>
+                    )
+                })}
                 <Button variant="contained" onClick={this.cancelEdit}>Cancel</Button>
                 <Button variant='contained' onClick={this.handelUpdate}>Update</Button>
                 </Grid>
@@ -76,4 +111,5 @@ class Edit extends Component {
 const mapStateToProps = reduxState => ({
     reduxState,
 });
+
 export default withRouter(connect(mapStateToProps)(Edit));
