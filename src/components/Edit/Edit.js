@@ -16,29 +16,28 @@ class Edit extends Component {
         this.getDetails();
     }
 
+    componentDidUpdate(prevousProps){
+        if(this.props.reduxState.details !== prevousProps.reduxState.details){
+            this.props.reduxState.details.map((movie) => {
+                return (
+                    this.setState({
+                        movie: {
+                            id: movie.id,
+                            title: movie.title,
+                            description: movie.description
+                        }
+    
+                    })
+                )
+            })
+        }
+    }
     getDetails = async () => {
         this.props.dispatch({ type: 'FETCH_DETAILS', payload: this.props.match.params.id });
         this.props.dispatch({ type: 'FETCH_GENRES', payload: this.props.match.params.id });
         this.props.dispatch({ type: 'GET_ALL_GENRES'});
-
-        this.set();
     }
 
-    set = () => {
-        console.log("set");
-        this.props.reduxState.details.map((movie) => {
-            return (
-                this.setState({
-                    movie: {
-                        id: movie.id,
-                        title: movie.title,
-                        description: movie.description
-                    }
-
-                })
-            )
-        })
-    }
     handelChange = (e, propertyName) => {
         this.setState({
             movie: {
