@@ -30,6 +30,7 @@ class Edit extends Component {
                     })
                 )
             })
+            this.getDetails();
         }
     }
     getDetails = async () => {
