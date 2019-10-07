@@ -8,6 +8,10 @@ class Details extends Component {
         this.getDetails()
     }
 
+    componentDidUpdate(){
+        this.getDetails();
+    }
+
     getDetails = () => {
         this.props.dispatch({ type: 'FETCH_DETAILS', payload: this.props.match.params.id })
         this.props.dispatch({ type: 'FETCH_GENRES', payload: this.props.match.params.id })
